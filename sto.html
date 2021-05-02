@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    .container {
+      height: 300px;
+      width: 100%;
+    }
+    #display {
+      width: 100%;
+      text-align: center;
+      font-size: 72px;
+      margin: 0px auto;
+    }
+    .button {
+      text-align: center;
+    }
+  </style>
+  <body>
+    <script>
+      let seconds = 0;
+      let minuetes = 0;
+      let hours = 0;
+      let displayh = 0;
+      let displaym = 0;
+      let displays = 0;
+      function stopwatch() {
+        seconds++;
+        if (seconds / 60 === 1) {
+          seconds = 0;
+          minuetes++;
+        }
+        if (minuetes / 60 === 1) {
+          minuetes = 0;
+          hours++;
+        }
+        if (seconds < 10) displays = "0" + seconds.toString();
+        else displays = seconds;
+        if (minuetes < 10) displaym = "0" + minuetes.toString();
+        else displaym = minuetes;
+        if (hours < 10) displayh = "0" + hours.toString();
+        else displayh = hours;
+        document.getElementById("display").innerHTML =
+          displayh + ":" + displaym + ":" + displays;
+      }
+    </script>
+    <script>
+      let interval = null;
+      let status = "stopped";
+      function start() {
+        if (status === "stopped") {
+          interval = window.setInterval(stopwatch, 1000);
+          status = "started";
+        }
+      }
+      function stop() {
+        window.clearInterval(interval);
+        status = "stopped";
+      }
+      function reset() {
+        seconds = 0;
+        minuetes = 0;
+        hours = 0;
+        window.clearInterval(interval);
+        document.getElementById("display").innerHTML = "00:00:00";
+      }
+    </script>
+    <h1 style="text-align: center"><i>STOPWATCH</i></h1>
+    <div class="container">
+      <div id="display">00:00:00</div>
+      <div class="button">
+        <button input type="start" value="start" name="start" onclick="start()">
+          Start
+        </button>
+        <button input type="pause" value="pause" name="pause" onclick="stop()">
+          Pause
+        </button>
+        <button input type="reset" value="reset" name="reset" onclick="reset()">
+          Reset
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
